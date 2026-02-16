@@ -2,8 +2,8 @@
 CS 381 — ICA 10
 Expr2 with Static Type Checking (tc)
 
-Name:
-Date:
+Name: Charles Aebi
+Date: 2/16/2026
 
 --------------------------------------------------
 GOAL
