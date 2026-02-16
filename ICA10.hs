@@ -87,11 +87,15 @@ tc expr =
 
 
     Mult e1 e2 ->
-      undefined
+      case (tc e1, tc e2) of 
+        (TInt, TInt) -> TInt
+        _            -> TypeError
 
 
     Neg e ->
-      undefined
+      case tc e of
+        TInt -> TInt
+        _    -> TypeError
 
 
     --------------------------------------------
@@ -105,7 +109,10 @@ tc expr =
 
 
     Equal e1 e2 ->
-      undefined
+      case (tc e1, tc e2) of
+        (TInt, TInt)   -> TBool
+        (TBool, TBool) -> TBool
+        _              -> TypeError
 
 
     --------------------------------------------
@@ -117,7 +124,9 @@ tc expr =
     --------------------------------------------
 
     Div e1 e2 ->
-      undefined
+      case (tc e1, tc e2) of
+        (TInt, TInt) -> TInt
+        _            -> TypeError
 
 
 --------------------------------------------------
@@ -240,10 +249,10 @@ divTrigger =
 --------------------------------------------------
 
 eGood :: Expr
-eGood = undefined
+eGood = Plus (N 3) (Mult (N 2) (Neg (N 5)))
 
 eTypeBad :: Expr
-eTypeBad = undefined
+eTypeBad = Plus (N 3) (Not (N 5))
 
 eRuntimeBad :: Expr
-eRuntimeBad = undefined
+eRuntimeBad = Div (N 10) (N 0)
